@@ -1,0 +1,5 @@
+dist/
+build/
+django_http_monitor.egg-info/
+.DS_Store
+*.pyc
