@@ -25,8 +25,8 @@ Quick start
         ...
     )
 
-    Note HttpMonitorMiddleware should be in top of the middlewares,
-    But GZipMiddleware will zip the content, so GZipMiddleware will be top.
+Note HttpMonitorMiddleware should be in top of the middlewares,
+But GZipMiddleware will zip the content, so GZipMiddleware will be top.
 
 
 4. Start the development server and visit http://127.0.0.1:8000/http_monitor/requests
