@@ -53,13 +53,6 @@ Start the development server and visit http://127.0.0.1:8000/http_monitor/reques
 
 ## Settings
 
-```python
-url = getattr(settings, 'HTTP_MONITOR_REDIS_URL', 'redis://localhost:6379/0')
-url_prefix_list = getattr(settings, 'HTTP_MONITOR_PREFIX_LIST', ['/'])
-exclude_url_prefix_list = getattr(settings, 'HTTP_MONITOR_EXCLUDE_URL_PREFIX_LIST', ['/http_monitor'])
-expire_seconds = getattr(settings, 'HTTP_MONITOR_EXPIRE_SECONDS', 60 * 60 * 24 * 7)
-```
-
 ### HTTP_MONITOR_REDIS_URL
 A redis url for store debug message
 
@@ -80,6 +73,13 @@ Current we have three urls provide
 - `^requests/(?P<request_id>.*)/` monitoring request item
 - `^requests/(?P<request_id>.*)/raw/` monitoring request item response content（for content can't decode to json）
 
+## Develop
+
+```
+rm dist/*
+python setup.py sdist bdist_wheel
+twine upload dist/*
+```
 
 
 
