@@ -1,6 +1,6 @@
 # Django http monitor
 
-Django http monitor is a Django middleware for record http request and response in debug.
+Django http monitor is a Django app for record http request and response in debug.
 
 Django http monitor is based on response header `Request-UUID`, anyone has any questions about the request, just send me `Request-UUID` in response header, we can see whole message what we what.
 
@@ -80,6 +80,3 @@ rm dist/*
 python setup.py sdist bdist_wheel
 twine upload dist/*
 ```
-
-
-

@@ -10,7 +10,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',  # example license
-    description='A Django middleware for record http request and response in debug',
+    description='Django http monitor is a Django app for record http request and response in debug.',
     url='https://github.com/ZhangBohan/django-http-monitor',
     author='Bohan',
     author_email='me@bohanzhang.com',
