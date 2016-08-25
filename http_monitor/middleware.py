@@ -28,7 +28,7 @@ class HttpMonitorMiddleware(object):
 
         pipeline = redis_client.pipeline()
         list_key = 'http_monitor:requests:requests-list'
-        pipeline.lpush(list_key, request_id)
+        pipeline.rpush(list_key, request_id)
         pipeline.ltrim(list_key, 0, 100000)
 
         item_key_base = 'http_monitor:requests:{requests_id}'.format(requests_id=request_id)
