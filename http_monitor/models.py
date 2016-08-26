@@ -45,7 +45,6 @@ class Request(object):
         pipeline.hmset(key, {
             'status_code': response.status_code,
             'content': content,
-            'charset': response.charset,
             'host': request.META.get('HTTP_HOST'),
         })
         pipeline.expire(key, expire_seconds)
