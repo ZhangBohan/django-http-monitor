@@ -48,7 +48,6 @@ But GZipMiddleware will zip the content, so GZipMiddleware will be top.
 ### Done
 
 Start the development server and visit http://127.0.0.1:8000/http_monitor/requests
-   (you'll need the Admin login status to see this)
 
 
 ## Settings
