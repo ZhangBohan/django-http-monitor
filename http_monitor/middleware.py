@@ -1,3 +1,5 @@
+import time
+
 from django.conf import settings
 
 from http_monitor import url_prefix_list, exclude_url_prefix_list
@@ -8,6 +10,7 @@ class HttpMonitorMiddleware(object):
 
     def process_request(self, request):
         request._http_request_body = request.body.decode()
+        request._start_time = time.time()
 
     def process_response(self, request, response):
         path = request.path
@@ -26,5 +29,9 @@ class HttpMonitorMiddleware(object):
             if path.startswith(url_prefix):
                 return response
 
+        if hasattr(request, '_start_time'):
+            performance = time.time() - request._start_time
+            response['API-performance'] = performance
+            request._start_time = None
         response['Request-UUID'] = Request().add_request(request=request, response=response)
         return response
