@@ -15,6 +15,9 @@ class HttpMonitorMiddleware(object):
         if not settings.DEBUG:
             return response
 
+        if not hasattr(response, 'content'):
+            return response
+
         for url_prefix in url_prefix_list:
             if not path.startswith(url_prefix):
                 return response
