@@ -31,7 +31,7 @@ class HttpMonitorMiddleware(object):
 
         if hasattr(request, '_start_time'):
             performance = time.time() - request._start_time
-            response['API-performance'] = '{:.2f}'.format(performance)
+            response['API-performance'] = performance
             request._start_time = None
         response['Request-UUID'] = Request().add_request(request=request, response=response)
         return response
