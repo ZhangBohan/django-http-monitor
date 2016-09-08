@@ -9,10 +9,16 @@ from http_monitor.models import Request
 class HttpMonitorMiddleware(object):
 
     def process_request(self, request):
-        request._http_request_body = request.body.decode()
-        request._start_time = time.time()
+        try:
+            request._http_request_body = request.body.decode()
+            request._start_time = time.time()
+        except Exception:
+            pass
 
     def process_response(self, request, response):
+        if not hasattr(request, '_http_request_body'):
+            return response
+
         path = request.path
 
         if not settings.DEBUG:
