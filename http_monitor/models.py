@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime
 import json
+import requests
 
 from django.http import HttpResponse
 
@@ -110,3 +111,23 @@ class Request(object):
             pipeline.hgetall(key)
 
         return pipeline.execute()
+
+    def retry(self):
+        result = self.get_request()
+        request = result.get('request')
+        method = request.get('method')
+        url = 'http://' + request.get('host') + request.get('path')
+        headers = {k[5:]: v for k, v in result.get('request_headers').items()}
+        body = request.get('body')
+        r = requests.request(method=method,
+                             url=url,
+                             data=body,
+                             headers=headers)
+        return {
+            "method": method,
+            "url": url,
+            "headers": headers,
+            "body": body,
+            "status_code": r.status_code,
+            "content": r.content.decode()
+        }

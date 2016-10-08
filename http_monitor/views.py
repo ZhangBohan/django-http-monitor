@@ -10,6 +10,11 @@ def request_raw(request, request_id):
     return HttpResponse(content, content_type='text/html')
 
 
+def request_retry(request, request_id):
+    r = Request(request_id=request_id).retry()
+    return HttpResponse(json.dumps(r), content_type='application/json')
+
+
 def request(request, request_id):
     result = Request(request_id=request_id).get_request()
     return HttpResponse(json.dumps(result), content_type='application/json')
