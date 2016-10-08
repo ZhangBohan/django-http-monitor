@@ -71,6 +71,7 @@ Current we have three urls provide
 - `^requests/` monitoring request list
 - `^requests/(?P<request_id>.*)/` monitoring request item
 - `^requests/(?P<request_id>.*)/raw/` monitoring request item response content（for content can't decode to json）
+- `^requests/(?P<request_id>.*)/retry/` retry request
 
 ## Develop
 

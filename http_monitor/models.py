@@ -21,7 +21,7 @@ class Request(object):
         self.reponse_headers_key = item_key_base + 'response-headers'
 
     def add_request(self, request, response):
-        path = request.path
+        path = request.get_full_path()
 
         pipeline = redis_client.pipeline()
         pipeline.rpush(self.list_key, self.request_id)
@@ -112,11 +112,11 @@ class Request(object):
 
         return pipeline.execute()
 
-    def retry(self):
+    def retry(self, current_request):
         result = self.get_request()
         request = result.get('request')
         method = request.get('method')
-        url = 'http://' + request.get('host') + request.get('path')
+        url = current_request.build_absolute_uri(request.get('path'))
         headers = {k[5:]: v for k, v in result.get('request_headers').items()}
         body = request.get('body')
         r = requests.request(method=method,
