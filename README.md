@@ -55,6 +55,9 @@ Start the development server and visit http://127.0.0.1:8000/http_monitor/reques
 ### HTTP_MONITOR_REDIS_URL
 A redis url for store debug message
 
+### HTTP_MONITOR_FORCE_URL_LIST
+a list for which prefix match list will be force record.
+
 ### HTTP_MONITOR_PREFIX_LIST
 A list for which prefix start will be monitor, default is `['/']`
 

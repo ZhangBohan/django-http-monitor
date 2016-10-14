@@ -8,6 +8,7 @@ from django.http import HttpRequest
 
 url = getattr(settings, 'HTTP_MONITOR_REDIS_URL', 'redis://localhost:6379/0')
 url_prefix_list = getattr(settings, 'HTTP_MONITOR_PREFIX_LIST', ['/'])
+force_url_list = getattr(settings, 'HTTP_MONITOR_FORCE_URL_LIST', [])
 exclude_url_prefix_list = getattr(settings, 'HTTP_MONITOR_EXCLUDE_URL_PREFIX_LIST', ['/http_monitor'])
 expire_seconds = getattr(settings, 'HTTP_MONITOR_EXPIRE_SECONDS', 60 * 60 * 24 * 7)
 

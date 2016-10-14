@@ -2,7 +2,7 @@ import time
 
 from django.conf import settings
 
-from http_monitor import url_prefix_list, exclude_url_prefix_list
+from http_monitor import url_prefix_list, exclude_url_prefix_list, force_url_list
 from http_monitor.models import Request
 
 
@@ -21,7 +21,7 @@ class HttpMonitorMiddleware(object):
 
         path = request.path
 
-        if not settings.DEBUG:
+        if not settings.DEBUG and path not in force_url_list:
             return response
 
         if not hasattr(response, 'content'):
