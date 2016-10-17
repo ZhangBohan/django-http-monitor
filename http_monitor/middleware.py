@@ -21,19 +21,21 @@ class HttpMonitorMiddleware(object):
 
         path = request.path
 
-        if not settings.DEBUG and path not in force_url_list:
-            return response
+        if path not in force_url_list:
 
-        if not hasattr(response, 'content'):
-            return response
-
-        for url_prefix in url_prefix_list:
-            if not path.startswith(url_prefix):
+            if not settings.DEBUG:
                 return response
 
-        for url_prefix in exclude_url_prefix_list:
-            if path.startswith(url_prefix):
+            if not hasattr(response, 'content'):
                 return response
+
+            for url_prefix in url_prefix_list:
+                if not path.startswith(url_prefix):
+                    return response
+
+            for url_prefix in exclude_url_prefix_list:
+                if path.startswith(url_prefix):
+                    return response
 
         if hasattr(request, '_start_time'):
             performance = time.time() - request._start_time
