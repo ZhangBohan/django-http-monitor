@@ -18,14 +18,14 @@ class Request(object):
         self.request_key = item_key_base + 'request'
         self.request_headers_key = item_key_base + 'request-headers'
         self.response_key = item_key_base + 'response'
-        self.reponse_headers_key = item_key_base + 'response-headers'
+        self.response_headers_key = item_key_base + 'response-headers'
 
     def add_request(self, request, response):
         path = request.get_full_path()
 
         pipeline = redis_client.pipeline()
         pipeline.rpush(self.list_key, self.request_id)
-        pipeline.ltrim(self.list_key, 0, 100000)
+        pipeline.ltrim(self.list_key, 0, 10000)
 
         key = self.request_key
         pipeline.hmset(key, {
@@ -53,7 +53,7 @@ class Request(object):
         })
         pipeline.expire(key, expire_seconds)
 
-        key = self.reponse_headers_key
+        key = self.response_headers_key
         headers = {key: ', '.join(value) for key, value in response._headers.items()}
         pipeline.hmset(key, headers)
         pipeline.expire(key, expire_seconds)
@@ -74,7 +74,7 @@ class Request(object):
         key = self.response_key
         pipeline.hgetall(key)
 
-        key = self.reponse_headers_key
+        key = self.response_headers_key
         pipeline.hgetall(key)
 
         http_request, request_headers, response, response_headers = pipeline.execute()
