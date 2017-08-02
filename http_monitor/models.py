@@ -25,7 +25,7 @@ class Request(object):
 
         pipeline = redis_client.pipeline()
         pipeline.rpush(self.list_key, self.request_id)
-        pipeline.ltrim(self.list_key, 0, 10000)
+        pipeline.ltrim(self.list_key, -10000, -1)
 
         key = self.request_key
         pipeline.hmset(key, {
