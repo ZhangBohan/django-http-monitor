@@ -1,6 +1,7 @@
 # Django http monitor
 
-[![Build Status](https://travis-ci.org/FreeFolks/django-http-monitor.svg?branch=master)](https://travis-ci.org/FreeFolks/django-http-monitor)
+[![Build Status](https://travis-ci.org/beastbikes/django-http-monitor.svg?branch=master)](https://travis-ci.org/beastbikes/django-http-monitor)
+[![PyPI version](https://badge.fury.io/py/django-http-monitor.svg)](https://badge.fury.io/py/django-http-monitor)
 
 Django http monitor is a Django app for record http request and response in debug.
 
