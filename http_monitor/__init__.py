@@ -56,3 +56,4 @@ def auth_permission(func):
             return HttpResponseForbidden()
         return func(request, *args, **kwargs)
     return wrapper
+
