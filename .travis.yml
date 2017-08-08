@@ -1,22 +1,22 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-  - "3.6" # 3.6 development branch
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
 install:
- - pip install -r requirements.txt
- - pip install -q Django==$DJANGO_VERSION
+- pip install -r requirements.txt
+- pip install -q Django==$DJANGO_VERSION
 script: python runtests.py
 env:
- - DJANGO_VERSION=1.8
- - DJANGO_VERSION=1.9
- - DJANGO_VERSION=1.10
+- DJANGO_VERSION=1.8
+- DJANGO_VERSION=1.9
+- DJANGO_VERSION=1.10
 deploy:
   provider: pypi
-  distributions: "sdist bdist_wheel"
+  distributions: sdist bdist_wheel
   user: bohanzhang
   password:
-    secure: DuXrLbzXxD3JCvigU9Ot5UyRhmBG2XwbTr9FDGy9T5mj8ujB+d7UUMhs5siNQpudo6dA6UQo1pCs4q0tceHtWXrwtyCeoLEXsXCfCUOPlJv2JeXp1WV7jC18GzcJjhGyzTXAOVzudYwBoKHg1mVHHSlxpZGgE+HaXuGAkGoHKiwLRdJQobjRcvQaC0Ydyv8KjjVEK1GGXHHaN8whHDkZV61viTnu+d3ICve5Vd46wj8T4HFwYn/CWT4qiMGrFDf+vMoOSjahL5kRz+oYzMIY3Eae3Z6CSIS+KR9OwIJiKH6ro7KNlN0ggP0KyVUFtI7/RslUVwl8HGLJn4zQqWjQZ5oVbORJuxHbpdiJYG7QEdcy49RaPuhkATiYyxByUfVo/+VZIo03MtU9equ+NdWxK8OS4+Ympo+a5lr29alodrgpOZEt1P2LvclETyG6v9auwEqEvZ8Z4leoX/8iYfp6t8kYC5pgzlOdspMD2gDmTkAi9fbIZ9l9b7qA/LsIBDyIs3MkqlrL1WcNxmMZWbFpNUo5ZBw7T1x+wu9oaXbv36SZvFLeP0JZIHEVgJ4uCzW9s9hDn+/nQly/BKl8DWVCuLLqDpK0T/hk3M7P+NoSYB/aBLeDn/aWUrbLoEQJIsuVw/B1jt6AKJxWLFNb+tVZzPZbWb1pByI1POhlty8Dtas=
+    secure: Vx8bHFgM9rFjTrpCRSQBYmg+lm2AXznRYWvE9+lzAKMTCkVUbX9xp9U62ZdWdH2yawcEN5V5JpfG3GbTV/DbuOTTuWzjUa9PYXvHt+TmoenME5vCjhxPiwfS3xDTrcwq+o0JEhzDFNgg+MMCcaeozL3RL1YizgqwhfY10FbqSK3KMnkf03WYiB2L5F2kwv2OruyeWpEOn4szZL+QlVHFFvwGfuMc4BOIqrH4XLm29sWFbRe6DXginLqPRhEE3dB5LHcvebR9oNCWCPdKAADBlZBGnDyREE5mzDx3pyY7u7DfroNC/yXteFaqUtOwT3o8IS18b7GFr+J2TVw9Iydt38vQxPpxAzuxWqhrbsV86VtlCP1JISEutceXyfBymzhUifQtKXD+1X7kayMLlWC1fDjcBIVT+AZ2Oh27tP0Bg7Vh5+q2ZxggxgjY1mLoz6XNL/JAjbPcEu4IW1j9QGrimh9wCpumpGlt/pg00+GEo3aqj1XvUSfso9yYs1A6lIVcttlLQZu2+aYePqi69fSuenU39SUhh1qL3BwwanV9Mo2X3qIaDAl3B1PlH71QOqQEHrhuvNSOK5193Uue27XZW5WBQJV6sa/1wnk0FdjXdv6UMzfffeK7PJ1ZcTQsomyhZT6BqNLCgTMgarGio8jM7rpXuTfk7fmT+0RvfjQfvYE=
   on:
     tags: true
