@@ -1,7 +1,7 @@
 import json
 
 from django.http import HttpResponse
-from http_monitor import request_monitor
+from http_monitor import request_monitor, auth_permission
 
 from http_monitor.models import Request
 from django.conf import settings
@@ -14,9 +14,8 @@ def http_auth(request):
     return True
 
 
+@auth_permission
 def request_raw(request, request_id):
-    if not http_auth(request):
-        return HttpResponse("no permit", content_type='text/html')
     content = Request(request_id=request_id).get_conent()
     return HttpResponse(content, content_type='text/html')
 
@@ -29,16 +28,14 @@ def request_retry(request, request_id):
     return HttpResponse(json.dumps(r), content_type='application/json')
 
 
+@auth_permission
 def request(request, request_id):
-    if not http_auth(request):
-        return HttpResponse("no permit", content_type='text/html')
     result = Request(request_id=request_id).get_request()
     return HttpResponse(json.dumps(result), content_type='application/json')
 
 
+@auth_permission
 def requests(request):
-    if not http_auth(request):
-        return HttpResponse("no permit", content_type='text/html')
     size = int(request.GET.get('size', 20))
     page = int(request.GET.get('page', 1))
 
