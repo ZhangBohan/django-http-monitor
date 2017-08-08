@@ -7,23 +7,14 @@ from http_monitor.models import Request
 from django.conf import settings
 
 
-def http_auth(request):
-    auth_level = getattr(settings, "HTTP_MONITOR_AUTH_LEVEL", None)
-    if auth_level and hasattr(request, 'user') and not getattr(request.user, auth_level):
-        return False
-    return True
-
-
 @auth_permission
 def request_raw(request, request_id):
     content = Request(request_id=request_id).get_conent()
     return HttpResponse(content, content_type='text/html')
 
-
+@auth_permission
 @request_monitor
 def request_retry(request, request_id):
-    if not http_auth(request):
-        return HttpResponse("no permit", content_type='text/html')
     r = Request(request_id=request_id).retry(current_request=request)
     return HttpResponse(json.dumps(r), content_type='application/json')
 
