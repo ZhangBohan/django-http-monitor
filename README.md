@@ -70,6 +70,14 @@ A list for which prefix start will **not** be monitor, default is `['/http_monit
 ### HTTP_MONITOR_EXPIRE_SECONDS
 How long will redis expire the monitoring request, default is one week
 
+### HTTP_MONITOR_AUTH_PERMISSION
+A tuple or list for auth permission, default is None. if value is NULL or not set up, http_monitor will allow any user(
+include Anonymous User). For safety reasons, please set up, example：
+```
+    HTTP_MONITOR_AUTH_PERMISSION = ('is_superuser', 'is_staff')
+```
+
+
 ## URLs
 
 Current we have three urls provide
