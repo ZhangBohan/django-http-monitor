@@ -4,7 +4,7 @@ import time
 
 import redis
 from django.conf import settings
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseForbidden
 
 url = getattr(settings, 'HTTP_MONITOR_REDIS_URL', 'redis://localhost:6379/0')
 url_prefix_list = getattr(settings, 'HTTP_MONITOR_PREFIX_LIST', ['/'])
@@ -15,6 +15,7 @@ expire_seconds = getattr(settings, 'HTTP_MONITOR_EXPIRE_SECONDS', 60 * 60 * 24 *
 store_prefix = getattr(settings, 'HTTP_MONITOR_STORE_PREFIX', 'http_monitor:')
 
 redis_client = redis.StrictRedis.from_url(url, decode_responses=True)
+auth_level = getattr(settings, "HTTP_MONITOR_AUTH_PERMISSION", None)
 
 
 def request_monitor(func):
@@ -44,3 +45,15 @@ def request_monitor(func):
         return response
 
     return wrapper
+
+
+def auth_permission(func):
+    def wrapper(request, *args, **kwargs):
+        if auth_level and hasattr(request, 'user'):
+            for auth_type in auth_level:
+                if getattr(request.user, auth_type):
+                    return func(request, *args, **kwargs)
+            return HttpResponseForbidden()
+        return func(request, *args, **kwargs)
+    return wrapper
+

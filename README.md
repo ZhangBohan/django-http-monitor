@@ -1,6 +1,7 @@
 # Django http monitor
 
-[![Build Status](https://travis-ci.org/FreeFolks/django-http-monitor.svg?branch=master)](https://travis-ci.org/FreeFolks/django-http-monitor)
+[![Build Status](https://travis-ci.org/beastbikes/django-http-monitor.svg?branch=master)](https://travis-ci.org/beastbikes/django-http-monitor)
+[![PyPI version](https://badge.fury.io/py/django-http-monitor.svg)](https://badge.fury.io/py/django-http-monitor)
 
 Django http monitor is a Django app for record http request and response in debug.
 
@@ -68,6 +69,14 @@ A list for which prefix start will **not** be monitor, default is `['/http_monit
 
 ### HTTP_MONITOR_EXPIRE_SECONDS
 How long will redis expire the monitoring request, default is one week
+
+### HTTP_MONITOR_AUTH_PERMISSION
+A tuple or list for auth permission, default is None. if value is NULL or not set up, http_monitor will allow any user(
+include Anonymous User). For safety reasons, please set up, example：
+```
+    HTTP_MONITOR_AUTH_PERMISSION = ('is_superuser', 'is_staff')
+```
+
 
 ## URLs
 
