@@ -5,7 +5,7 @@ import requests
 
 from django.http import HttpResponse
 
-from http_monitor import redis_client, store_prefix, expire_seconds
+from http_monitor import redis_client, store_prefix, expire_seconds, force_url_key
 
 
 class Request(object):
@@ -131,3 +131,10 @@ class Request(object):
             "status_code": r.status_code,
             "content": r.content.decode()
         }
+
+
+    def get_settings(self):
+        apis_count = redis_client.scard(force_url_key)
+        apis = redis_client.smembers(force_url_key)
+
+        return {"force_apis_count": apis_count, "force_apis": list(apis)}
