@@ -16,6 +16,8 @@ store_prefix = getattr(settings, 'HTTP_MONITOR_STORE_PREFIX', 'http_monitor:')
 
 redis_client = redis.StrictRedis.from_url(url, decode_responses=True)
 auth_level = getattr(settings, "HTTP_MONITOR_AUTH_PERMISSION", None)
+dynamic_force_url_status = getattr(settings, 'HTTP_MONITOR_DYNAMIC_FORCE_URL_STATUS', False)
+force_url_key = 'http_monitor_force_url'
 
 
 def request_monitor(func):

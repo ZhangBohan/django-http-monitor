@@ -20,7 +20,8 @@ class HttpMonitorMiddleware(MiddlewareMixin):
         if not hasattr(request, '_http_request_body'):
             return response
 
-        path = request.path
+        # 对get请求进行处理
+        path = request.path.split('?', 1)[0]
 
         if path not in force_url_list:
 
