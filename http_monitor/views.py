@@ -32,3 +32,8 @@ def requests(request):
 
     http_requests = Request().get_requests(size=size, page=page)
     return HttpResponse(json.dumps(http_requests), content_type='application/json')
+
+@auth_permission
+def settings_view(request):
+    result = Request().get_settings()
+    return HttpResponse(json.dumps(result), content_type='application/json')

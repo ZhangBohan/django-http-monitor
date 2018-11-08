@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^requests/(?P<request_id>.*)/raw/$', views.request_raw, name='django.http_monitor.request_raw'),
     url(r'^requests/(?P<request_id>.*)/retry/$', views.request_retry, name='django.http_monitor.request_retry'),
     url(r'^requests/(?P<request_id>.*)/$', views.request, name='django.http_monitor.request'),
+    url(r'^settings/$', views.settings_view, name='django.http_monitor.settings'),
 ]

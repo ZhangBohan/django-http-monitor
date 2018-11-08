@@ -77,6 +77,14 @@ include Anonymous User). For safety reasons, please set up, example：
     HTTP_MONITOR_AUTH_PERMISSION = ('is_superuser', 'is_staff')
 ```
 
+### HTTP_MONITOR_DYNAMIC_FORCE_URL_STATUS
+A boolean for dynamic prefix match list will be force record, default is False. Configure data is in redis，
+it is a set. The name of set is 'http_monitor_force_url'
+
+```
+    HTTP_MONITOR_DYNAMIC_FORCE_URL_STATUS = True
+```
+
 
 ## URLs
 
@@ -86,6 +94,7 @@ Current we have three urls provide
 - `^requests/(?P<request_id>.*)/` monitoring request item
 - `^requests/(?P<request_id>.*)/raw/` monitoring request item response content（for content can't decode to json）
 - `^requests/(?P<request_id>.*)/retry/` retry request
+- `^settings/` settings
 
 ## Develop
 
