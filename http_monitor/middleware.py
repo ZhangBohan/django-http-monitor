@@ -5,9 +5,10 @@ from django.conf import settings
 from http_monitor import url_prefix_list, exclude_url_prefix_list, force_url_list, redis_client, \
     dynamic_force_url_status, force_url_key
 from http_monitor.models import Request
+from django.utils.deprecation import MiddlewareMixin
 
 
-class HttpMonitorMiddleware(object):
+class HttpMonitorMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         try:
