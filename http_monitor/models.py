@@ -6,7 +6,6 @@ import requests
 from django.http import HttpResponse
 
 from http_monitor import redis_client, store_prefix, expire_seconds, force_url_key
-from django.contrib.auth import get_user_model
 
 
 class Request(object):
