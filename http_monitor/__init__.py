@@ -40,7 +40,7 @@ def request_monitor(func):
         if hasattr(request, '_start_time'):
             performance = time.time() - request._start_time
             response['API-performance'] = performance
-            # request._start_time = None  # when _start_time equal None, there is a error in action retry
+            request._start_time = None
         response['Request-UUID'] = Request().add_request(request=request, response=response)
 
         print('request_monitor end')

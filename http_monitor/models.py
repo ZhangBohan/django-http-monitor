@@ -6,7 +6,6 @@ import requests
 from django.http import HttpResponse
 
 from http_monitor import redis_client, store_prefix, expire_seconds, force_url_key
-from django.contrib.auth import get_user_model
 
 
 class Request(object):
@@ -20,7 +19,6 @@ class Request(object):
         self.request_headers_key = item_key_base + 'request-headers'
         self.response_key = item_key_base + 'response'
         self.response_headers_key = item_key_base + 'response-headers'
-        self.request_user = item_key_base + 'request_user'
 
     def add_request(self, request, response):
         path = request.get_full_path()
@@ -60,13 +58,6 @@ class Request(object):
         pipeline.hmset(key, headers)
         pipeline.expire(key, expire_seconds)
 
-        key = self.request_user
-        user_info = dict()
-        if hasattr(request, 'user'):
-            user_info = dict(username=request.user.id, id=request.user.username)
-        pipeline.hmset(key, user_info)
-        pipeline.expire(key, expire_seconds)
-
         pipeline.execute()
 
         return self.request_id
@@ -86,10 +77,7 @@ class Request(object):
         key = self.response_headers_key
         pipeline.hgetall(key)
 
-        key = self.request_user
-        pipeline.hgetall(key)
-
-        http_request, request_headers, response, response_headers, request_user = pipeline.execute()
+        http_request, request_headers, response, response_headers = pipeline.execute()
         if not http_request:
             return HttpResponse(status=404)
 
@@ -102,7 +90,6 @@ class Request(object):
         response['content'] = content
 
         result = {
-            "user": request_user,
             'request': http_request,
             'request_headers': request_headers,
             'response': response,
